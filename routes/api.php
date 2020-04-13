@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::prefix('v1')->name('api.v1')->group(function () {
-    
+Route::prefix('v1')->namespace('Api')->name('api.v1')->group(function () {
+    // 短信验证码
+    Route::post('verificationCodes', 'VerificationCodeController@store')->name('verificationCodes.store');
 });

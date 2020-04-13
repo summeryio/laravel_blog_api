@@ -22,5 +22,5 @@ Route::prefix('v1')->namespace('Api')->name('api.v1')->group(function () {
     // 短信验证码
     Route::post('verificationCodes', 'VerificationCodeController@store')->name('verificationCodes.store');
     // 用户注册
-    Route::get('users', 'UserController@store')->name('users.store');
+    Route::post('users', 'UserController@store')->name('users.store');
 });

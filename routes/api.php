@@ -28,6 +28,9 @@ Route::prefix('v1')
             Route::post('verificationCodes', 'VerificationCodeController@store')->name('verificationCodes.store');
             // 用户注册
             Route::post('users', 'UserController@store')->name('users.store');
+
+            // 图片验证码
+            Route::get('captchas', 'CaptchaController@store')->name('captchas.store');
         });
 
 

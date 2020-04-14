@@ -42,8 +42,6 @@ Route::prefix('v1')
             // 删除token
             Route::delete('authorizations/current', 'AuthorizationController@destroy')
                 ->name('api.authorizations.destroy');
-
-
         });
 
 
@@ -53,8 +51,10 @@ Route::prefix('v1')
                 // 获取用户数据
                 Route::get('user', 'UserController@me')
                     ->name('user.show');
-
+                // 上传图片
                 Route::post('images', 'ImageController@store')->name('images.store');
+                // 编辑登录用户信息
+                Route::patch('user', 'UserController@update')->name('user.update');
             });
 
         });

@@ -42,10 +42,21 @@ Route::prefix('v1')
             // 删除token
             Route::delete('authorizations/current', 'AuthorizationController@destroy')
                 ->name('api.authorizations.destroy');
+
+
         });
 
 
         Route::middleware('throttle:' . config('api.rate_limits.access'))->group(function () {
+
+            Route::middleware('auth:api')->group(function () {
+                // 获取用户数据
+                Route::get('user', 'UserController@me')
+                    ->name('user.show');
+
+                Route::post('images', 'ImageController@store')->name('images.store');
+            });
+
         });
 
 });

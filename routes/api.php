@@ -31,6 +31,17 @@ Route::prefix('v1')
 
             // 图片验证码
             Route::get('captchas', 'CaptchaController@store')->name('captchas.store');
+
+            // 登录
+            Route::post('authorizations', 'AuthorizationController@store')
+                ->name('api.authorizations.store');
+
+            // 刷新token
+            Route::put('authorizations/current', 'AuthorizationController@update')
+                ->name('api.authorizations.update');
+            // 删除token
+            Route::delete('authorizations/current', 'AuthorizationController@destroy')
+                ->name('api.authorizations.destroy');
         });
 
 

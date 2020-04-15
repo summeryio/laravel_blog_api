@@ -55,6 +55,9 @@ Route::prefix('v1')
                 Route::post('images', 'ImageController@store')->name('images.store');
                 // 编辑登录用户信息
                 Route::patch('user', 'UserController@update')->name('user.update');
+
+                // 文章分类
+                Route::resource('categories', 'CategoryController')->only(['index', 'store', 'update', 'destroy']);
             });
 
         });

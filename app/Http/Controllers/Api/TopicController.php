@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Requests\Api\TopicRequest;
+use App\Http\Resources\TopicResource;
+use Illuminate\Http\Request;
+use App\Models\Topic;
+use Symfony\Component\HttpFoundation\Response;
+
+class TopicController extends Controller
+{
+    public function store(TopicRequest $request, Topic $topic) {
+        $topic->fill($request->all());
+        $topic->user_id = $request->user()->id;
+        $topic->excerpt = $request->title;
+        $topic->save();
+
+        return response(null, Response::HTTP_CREATED);
+    }
+}

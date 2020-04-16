@@ -46,7 +46,6 @@ Route::prefix('v1')
 
 
         Route::middleware('throttle:' . config('api.rate_limits.access'))->group(function () {
-
             Route::middleware('auth:api')->group(function () {
                 // 获取用户数据
                 Route::get('user', 'UserController@me')
@@ -58,8 +57,10 @@ Route::prefix('v1')
 
                 // 文章分类
                 Route::resource('categories', 'CategoryController')->only(['index', 'store', 'update', 'destroy']);
-            });
 
+                // 话题数据
+                Route::resource('topics', 'TopicController')->only(['index', 'store', 'update', 'destroy']);
+            });
         });
 
 });

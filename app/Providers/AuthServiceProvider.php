@@ -13,6 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
+        App\Models\Topic::class => \App\Policies\TopicPolicy::class
         // 'App\Model' => 'App\Policies\ModelPolicy',
     ];
 
@@ -25,6 +26,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::guessPolicyNamesUsing(function ($modelClass) {
+            return 'App\Policies\\' . class_basename($modelClass) . 'Policy';
+        });
     }
 }

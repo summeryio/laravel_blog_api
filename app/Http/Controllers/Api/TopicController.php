@@ -25,8 +25,16 @@ class TopicController extends Controller
     }
 
     public function update(TopicRequest $request, Topic $topic) {
+        $this->authorize('update', $topic);
         $topic->update($request->all());
 
         return response(null, Response::HTTP_CREATED);
+    }
+
+    public function destroy(Topic $topic) {
+        $this->authorize('destroy', $topic);
+        $topic->delete();
+
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 }

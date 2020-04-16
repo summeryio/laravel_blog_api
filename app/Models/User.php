@@ -38,6 +38,10 @@ class User extends Authenticatable implements  JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
+    public function isAuthOf($model) {
+        return $this->id == $model->user_id;
+    }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();

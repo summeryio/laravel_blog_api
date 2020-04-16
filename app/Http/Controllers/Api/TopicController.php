@@ -4,15 +4,18 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\Api\TopicRequest;
 use App\Http\Resources\TopicResource;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Topic;
 use Symfony\Component\HttpFoundation\Response;
 
 class TopicController extends Controller
 {
-    public function index() {
+    public function index(Topic $topic, User $user, Request $request) {
+        $topics = Topic::where('user_id', $request->user()->id);
+
         TopicResource::wrap('data');
-        return TopicResource::collection(Topic::paginate());
+        return TopicResource::collection($topics->paginate());
     }
 
     public function store(TopicRequest $request, Topic $topic) {

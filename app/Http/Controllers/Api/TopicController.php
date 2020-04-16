@@ -10,11 +10,22 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TopicController extends Controller
 {
+    public function index() {
+        TopicResource::wrap('data');
+        return TopicResource::collection(Topic::paginate());
+    }
+
     public function store(TopicRequest $request, Topic $topic) {
         $topic->fill($request->all());
         $topic->user_id = $request->user()->id;
         $topic->excerpt = $request->title;
         $topic->save();
+
+        return response(null, Response::HTTP_CREATED);
+    }
+
+    public function update(TopicRequest $request, Topic $topic) {
+        $topic->update($request->all());
 
         return response(null, Response::HTTP_CREATED);
     }

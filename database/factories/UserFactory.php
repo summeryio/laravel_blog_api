@@ -20,7 +20,7 @@ $factory->define(User::class, function (Faker $faker) {
     $date_time = $faker->date . ' ' . $faker->time;
     return [
         'name' => $faker->name,
-        'phone' => $faker->phoneNumber,
+//        'phone' => $faker->phoneNumber,
         'password' => bcrypt('1234'),
         'remember_token' => null,
         'introduction' => $faker->sentence(),

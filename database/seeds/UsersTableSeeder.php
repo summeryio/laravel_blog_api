@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 class UsersTableSeeder extends Seeder
 {
@@ -16,10 +17,13 @@ class UsersTableSeeder extends Seeder
             'https://cdn.learnku.com/uploads/images/201710/14/1/ZqM7iaP4CR.png',
             'https://cdn.learnku.com/uploads/images/201710/14/1/NDnzMutoxX.png',
         ];
+
         $users = factory(User::class)
             ->times(5)
             ->make()
             ->each(function ($user, $index) use ($faker, $avatars) {
+                $phoneNum = '1828963' . str_pad(random_int(1, 9999), 4, 0, STR_PAD_LEFT);
+                $user->phone = $phoneNum;
                 $user->avatar = $faker->randomElement($avatars);
             });
         $user_array = $users->makeVisible(['password', 'remember_token'])->toArray();

@@ -16,10 +16,10 @@ class UserController extends Controller
         $captchaData = \Cache::get($request->captcha_key);
 
         if (!$verifyData) {
-            abort(403, '短信验证码已失效');
+            abort(422, '短信验证码已失效');
         }
         if (!$captchaData) {
-            abort(403, '图片验证码已失效');
+            abort(422, '图片验证码已失效');
         }
 
         if (!hash_equals($verifyData['code'], $request->verification_code)) {

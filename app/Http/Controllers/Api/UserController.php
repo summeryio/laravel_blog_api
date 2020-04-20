@@ -23,15 +23,13 @@ class UserController extends Controller
         }
 
         if (!hash_equals($verifyData['code'], $request->verification_code)) {
-            // 返回401
-            throw new AuthenticationException('短信验证码错误');
+            abort(422, '短信验证码错误');
         }
         if (!hash_equals(strtolower($captchaData['code']), strtolower($request->captcha_code))) {
             // 验证错误就清除缓存
             \Cache::forget($request->captcha_key);
 
-            // 返回401
-            throw new AuthenticationException('图片验证码错误');
+            abort(422, '图片验证码错误');
         }
 
         $user = User::create([

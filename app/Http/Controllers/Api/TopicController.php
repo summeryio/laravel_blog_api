@@ -8,14 +8,22 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Topic;
 use Symfony\Component\HttpFoundation\Response;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class TopicController extends Controller
 {
     public function index(Topic $topic, User $user, Request $request) {
-        $topics = Topic::where('user_id', $request->user()->id);
+        $topics = QueryBuilder::for(Topic::where('user_id', $request->user()->id))
+            ->allowedIncludes('user', 'category')
+            ->allowedFilters([
+                'title',
+                AllowedFilter::exact('category_id'),
+//                AllowedFilter::scope('withOrder')->default('recentReplied')
+            ])->paginate();
 
-        TopicResource::wrap('data');
-        return TopicResource::collection($topics->paginate());
+        TopicResource::wrap('list');
+        return TopicResource::collection($topics);
     }
 
     public function store(TopicRequest $request, Topic $topic) {

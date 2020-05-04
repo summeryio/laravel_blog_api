@@ -60,6 +60,7 @@ Route::prefix('v1')
 
                 // 话题数据
                 Route::resource('topics', 'TopicController')->only(['index', 'store', 'update', 'destroy']);
+                Route::post('topics/batchDelete', 'TopicController@batchDelete')->name('topics.batchDelete');
             });
         });
 

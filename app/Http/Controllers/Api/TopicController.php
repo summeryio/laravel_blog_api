@@ -19,8 +19,9 @@ class TopicController extends Controller
             ->allowedFilters([
                 'title',
                 AllowedFilter::exact('category_id'),
-//                AllowedFilter::scope('withOrder')->default('recentReplied')
-            ])->paginate();
+            ])
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
 
         TopicResource::wrap('list');
         return TopicResource::collection($topics);
@@ -43,8 +44,15 @@ class TopicController extends Controller
     }
 
     public function destroy(Topic $topic) {
-        $this->authorize('destroy', $topic);
+        /*$this->authorize('destroy', $topic);
         $topic->delete();
+
+        return response(null, Response::HTTP_NO_CONTENT);*/
+    }
+
+    public function batchDelete(Request $request, Topic $topic) {
+        $topic->whereIn('id', $request->ids)->delete();
+//        dd($request->ids);
 
         return response(null, Response::HTTP_NO_CONTENT);
     }

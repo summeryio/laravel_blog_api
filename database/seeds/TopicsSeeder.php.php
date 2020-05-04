@@ -14,7 +14,7 @@ class TopicsSeeder extends Seeder
         $faker = app(\Faker\Generator::class);
 
         $topics = factory(Topic::class)
-            ->times(20)
+            ->times(200)
             ->make()
             ->each(function ($topic, $index) use ($user_ids, $category_ids, $faker) {
                 $topic->user_id = $faker->randomELement($user_ids);

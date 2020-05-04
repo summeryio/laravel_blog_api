@@ -7,7 +7,7 @@ class ImageRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'type' => 'required | string | in:avatar,article' // 限制type给定的值
+            'type' => 'required | string | in:avatar,topic' // 限制type给定的值
         ];
 
         if ($this->type == 'avatar') {

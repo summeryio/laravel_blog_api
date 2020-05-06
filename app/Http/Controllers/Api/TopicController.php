@@ -19,6 +19,7 @@ class TopicController extends Controller
             ->allowedFilters([
                 'title',
                 AllowedFilter::exact('category_id'),
+                'created_at'
             ])
             ->orderBy('created_at', 'desc')
             ->paginate(10);

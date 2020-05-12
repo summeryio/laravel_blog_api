@@ -18,6 +18,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
+// 前端接口
+Route::prefix('blog')
+    ->namespace('Api')
+    ->name('api.blog')
+    ->group(function () {
+        Route::middleware('throttle:' . config('api.rate_limits.access'))->group(function () {
+            Route::get('topics', 'BlogController@topicList')->name('blog.topics.list');
+        });
+    });
+
+// 后台管理接口
 Route::prefix('v1')
     ->namespace('Api')
     ->name('api.v1')

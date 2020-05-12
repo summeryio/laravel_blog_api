@@ -6,9 +6,20 @@ class CategoryRequest extends FormRequest
 {
     public function rules()
     {
-        return [
-            'name' => 'required | string | between:2,5 | unique:categories,name',
-            'description' => 'required | string | max:20',
-        ];
+        switch ($this->method()) {
+            case 'POST':
+                return [
+                    'name' => 'required | string | between:2,5 | unique:categories,name',
+                    'description' => 'required | string | max:20',
+                ];
+            break;
+            case 'PATCH':
+                return [
+                    'name' => 'required | string | between:2,5',
+                    'description' => 'required | string | max:20',
+                ];
+            break;
+        }
+
     }
 }

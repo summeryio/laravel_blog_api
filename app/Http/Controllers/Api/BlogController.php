@@ -17,7 +17,7 @@ class BlogController extends Controller
         $topics = QueryBuilder::for(Topic::class)
             ->allowedIncludes('user', 'category')
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate(5);
 
         TopicResource::wrap('list');
         return TopicResource::collection($topics);

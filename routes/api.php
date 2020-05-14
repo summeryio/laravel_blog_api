@@ -25,6 +25,7 @@ Route::prefix('blog')
     ->group(function () {
         Route::middleware('throttle:' . config('api.rate_limits.access'))->group(function () {
             Route::get('topics', 'BlogController@topicList')->name('blog.topics.list');
+            Route::get('categories', 'BlogController@getCategory')->name('blog.categories');
         });
     });
 

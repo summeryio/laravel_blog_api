@@ -28,6 +28,14 @@ class BlogController extends Controller
         return TopicResource::collection($topics);
     }
 
+    public function topicDetail($topicId) {
+        $topic = QueryBuilder::for(Topic::class)
+            ->allowedIncludes('user', 'category')
+            ->findOrFail($topicId);
+
+        return new TopicResource($topic);
+    }
+
     public function getCategory(Category $category) {
         CategoryResource::wrap('data');
         return CategoryResource::collection(Category::all());

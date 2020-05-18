@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Topic;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,5 +40,14 @@ class BlogController extends Controller
     public function getCategory(Category $category) {
         CategoryResource::wrap('data');
         return CategoryResource::collection(Category::all());
+    }
+
+    public function me(User $user, Category $category) {
+        $data = [
+            'user' => $user->find(1),
+            'cat' => $category->all()
+        ];
+
+        return response()->json($data);
     }
 }

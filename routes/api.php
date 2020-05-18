@@ -27,6 +27,7 @@ Route::prefix('blog')
             Route::get('topics', 'BlogController@topicList')->name('blog.topics.list');
             Route::get('topics/{topicId}', 'BlogController@topicDetail')->name('blog.topics.detail');
             Route::get('categories', 'BlogController@getCategory')->name('blog.categories');
+            Route::get('me', 'BlogController@me')->name('blog.me');
         });
     });
 
